@@ -1,8 +1,9 @@
+import { SignInCard } from "@/features/auth/components/sign-in-card";
+
 const SignInPage = () => {
   return (
     <div>
-      <h1>Sign In</h1>
-      {/* Add your sign-in form here */}
+      <SignInCard />
     </div>
   );
 };
