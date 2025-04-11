@@ -1,5 +1,7 @@
 import { DottedSeparator } from "@/components/dotted-separator";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 export const SignInCard = () => {
@@ -12,7 +14,29 @@ export const SignInCard = () => {
         <DottedSeparator />
       </div>
       <CardContent className="p-7">
-        <form className="space-y-4"></form>
+        <form className="space-y-4">
+          <Input
+            required
+            type="email"
+            value={""}
+            onChange={() => {}}
+            placeholder="Enter email address"
+            disabled={false}
+          />
+          <Input
+            required
+            type="password"
+            value={""}
+            min={8}
+            max={256}
+            onChange={() => {}}
+            placeholder="Enter password"
+            disabled={false}
+          />
+          <Button disabled={false} size="lg" className="w-full">
+            Login
+          </Button>
+        </form>
       </CardContent>
     </Card>
   );
