@@ -33,7 +33,7 @@ export const SignInCard = () => {
   });
 
   const onSubmit = (values: SignInSchemaType) => {
-    console.log(values, "this is the values");
+    console.log(values, "value");
   };
 
   return (
