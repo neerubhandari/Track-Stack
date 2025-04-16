@@ -41,7 +41,7 @@ export const SignUpCard = () => {
   });
 
   const onSubmit = (values: SignUpSchemaType) => {
-    console.log(values);
+    console.log(values, "value");
   };
 
   return (
