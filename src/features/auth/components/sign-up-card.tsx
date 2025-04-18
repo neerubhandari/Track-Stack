@@ -21,14 +21,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { SignUpSchema } from "../schemas";
 
 export const SignUpCard = () => {
-  const SignUpSchema = z.object({
-    name: z.string().trim().min(1, "Required"),
-    email: z.string().email().trim().min(1, "Required"),
-    password: z.string().min(1, "Required").max(20),
-  });
-
   type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
   const form = useForm<SignUpSchemaType>({
