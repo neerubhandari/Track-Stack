@@ -22,8 +22,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { SignUpSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
+  const { mutate } = useRegister();
   type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
   const form = useForm<SignUpSchemaType>({
@@ -36,7 +38,7 @@ export const SignUpCard = () => {
   });
 
   const onSubmit = (values: SignUpSchemaType) => {
-    console.log(values, "value");
+    mutate(values);
   };
 
   return (
