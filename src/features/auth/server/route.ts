@@ -2,6 +2,10 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { LoginSchema, SignUpSchema } from "../schemas";
+import { createAdminClient } from "@/lib/appwrite";
+import { ID } from "node-appwrite";
+import { setCookie } from "hono/cookie";
+import { AUTH_COOKIE } from "../constants";
 
 const app = new Hono()
   .post("/login", zValidator("json", LoginSchema), async (c) => {
@@ -11,6 +15,16 @@ const app = new Hono()
   })
   .post("/register", zValidator("json", SignUpSchema), async (c) => {
     const { email, password, name } = c.req.valid("json");
-    return c.json({ email, password, name });
+    const { account } = await createAdminClient();
+    const user = await account.create(ID.unique(), email, password, name);
+    const session = await account.createEmailPasswordSession(email, password);
+    setCookie(c, AUTH_COOKIE, session.secret, {
+      path: "/",
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+    });
+    return c.json({ data: user });
   });
 export default app;
