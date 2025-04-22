@@ -1,22 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+"use client";
+
+import { useCurrent } from "@/features/auth/api/use-current";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
-  return (
-    <div>
-      <Button>Primary</Button>
-      <Button variant={"destructive"} size={"lg"}>
-        Destructive
-      </Button>
-      <Button variant={"outline"} size={"sm"}>
-        Outline
-      </Button>
-      <Button variant={"secondary"} size="xs">
-        Secondary
-      </Button>
-      <Button variant={"ghost"}>Ghost</Button>
-      <Button variant={"muted"}>Muted</Button>
-      <Button variant={"teritary"}>teritary</Button>
-    </div>
-  );
+  const router = useRouter();
+  const { data, isLoading } = useCurrent();
+  useEffect(() => {
+    if (!data && !isLoading) {
+      router.push("/sign-in");
+    }
+  }, [data]);
+  return <div>Only visible to authorized users</div>;
 }
