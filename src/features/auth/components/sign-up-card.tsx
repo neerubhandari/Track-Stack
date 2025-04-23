@@ -1,3 +1,4 @@
+"use client";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,7 +26,7 @@ import { SignUpSchema } from "../schemas";
 import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
-  const { mutate } = useRegister();
+  const { mutate, isPending } = useRegister();
   type SignUpSchemaType = z.infer<typeof SignUpSchema>;
 
   const form = useForm<SignUpSchemaType>({
@@ -116,8 +117,8 @@ export const SignUpCard = () => {
                 </FormItem>
               )}
             />
-            <Button disabled={false} size="lg" className="w-full">
-              Sign up
+            <Button disabled={isPending} size="lg" className="w-full">
+              Register
             </Button>
           </form>
         </Form>
@@ -129,7 +130,7 @@ export const SignUpCard = () => {
         <Button
           variant={"secondary"}
           size="lg"
-          disabled={false}
+          disabled={isPending}
           className="w-full"
         >
           <FcGoogle className="mr-2 size-5" />
@@ -138,7 +139,7 @@ export const SignUpCard = () => {
         <Button
           variant={"secondary"}
           size="lg"
-          disabled={false}
+          disabled={isPending}
           className="w-full"
         >
           <FaGithub className="mr-2 size-5" />

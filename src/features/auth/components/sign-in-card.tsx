@@ -1,3 +1,4 @@
+"use client";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +20,7 @@ import { LoginSchema } from "../schemas";
 import { useLogin } from "../api/use-login";
 
 export const SignInCard = () => {
-  const { mutate } = useLogin();
+  const { mutate, isPending } = useLogin();
   type SignInSchemaType = z.infer<typeof LoginSchema>;
 
   const form = useForm<SignInSchemaType>({
@@ -82,7 +83,7 @@ export const SignInCard = () => {
               )}
             />
 
-            <Button disabled={false} size="lg" className="w-full">
+            <Button disabled={isPending} size="lg" className="w-full">
               Login
             </Button>
           </form>
@@ -95,7 +96,7 @@ export const SignInCard = () => {
         <Button
           variant={"secondary"}
           size="lg"
-          disabled={false}
+          disabled={isPending}
           className="w-full"
         >
           <FcGoogle className="mr-2 size-5" />
@@ -104,7 +105,7 @@ export const SignInCard = () => {
         <Button
           variant={"secondary"}
           size="lg"
-          disabled={false}
+          disabled={isPending}
           className="w-full"
         >
           <FaGithub className="mr-2 size-5" />
