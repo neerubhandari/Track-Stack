@@ -10,8 +10,8 @@ import {
 } from "@/config";
 import { ID, Query } from "node-appwrite";
 import { MemberRole } from "@/features/members/types";
-import { generateInviteCode } from "@/lib/utils";
 import { getMember } from "@/features/members/utils";
+import { generateInviteCode } from "@/lib/utils";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {
