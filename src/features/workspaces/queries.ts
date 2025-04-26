@@ -6,6 +6,10 @@ import { getMember } from "../members/utils";
 import { Workspace } from "./types";
 import { createSessionClient } from "@/lib/appwrite";
 
+interface GetWorkspaceProps {
+  workspaceId: string;
+}
+
 export const getWorkspaces = async () => {
   try {
     const { databases, account } = await createSessionClient();
@@ -33,10 +37,6 @@ export const getWorkspaces = async () => {
     return { documents: [], total: 0 };
   }
 };
-
-interface GetWorkspaceProps {
-  workspaceId: string;
-}
 
 export const getWorkspace = async ({ workspaceId }: GetWorkspaceProps) => {
   try {
