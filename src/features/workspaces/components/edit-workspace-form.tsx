@@ -114,7 +114,9 @@ export const EditWorkspaceForm = ({
     }
   };
 
-  const fullInviteLink = `${window?.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
+  const fullInviteLink = `${
+    typeof window !== "undefined" && window.location.origin
+  }/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
 
   const handleCopyInviteLink = () => {
     navigator.clipboard
