@@ -18,8 +18,8 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           <Image
             src="/logo.png"
             alt="Logo"
-            width={152}
-            height={56}
+            width={194}
+            height={66}
             className="h-10 w-auto"
           />
 

@@ -13,7 +13,7 @@ const StandaloneLyout = ({ children }: StandaloneLyoutProps) => {
       <div className="mx-auto mx-w-screen-2xl p-4">
         <nav className="flex items-center justify-between h-[73px]">
           <Link href="/">
-            <Image src={"/logo.svg"} alt={"Logo"} width={152} height={56} />
+            <Image src={"/logo.png"} alt={"Logo"} width={194} height={66} />
           </Link>
           <UserButton />
         </nav>
