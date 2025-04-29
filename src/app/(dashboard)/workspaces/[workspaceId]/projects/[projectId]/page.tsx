@@ -1,10 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { getCurrent } from "@/features/auth/queries";
-import { ProjectAvatar } from "@/features/projects/components/project-avatar";
-import { getProject } from "@/features/projects/queries";
-import { PencilIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { PencilIcon } from "lucide-react";
+import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+
+import { getCurrent } from "@/features/auth/queries";
+import { getProject } from "@/features/projects/queries";
 
 interface ProjectIdPageProps {
   params: {
@@ -38,9 +39,9 @@ const ProjectIdPage = async ({ params }: ProjectIdPageProps) => {
         <div className="">
           <Button variant="secondary" size="sm" asChild>
             <Link
-              href={`/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}/edit`}
+              href={`/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}/settings`}
             >
-              <PencilIcon />
+              <PencilIcon className="sizde-4 mr-2" />
               Edit Project
             </Link>
           </Button>
