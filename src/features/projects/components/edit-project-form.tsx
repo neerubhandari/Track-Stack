@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import { Project } from "../types";
 import { useConfirm } from "@/hooks/use-confirm";
 import { useUpdateProject } from "../api/use-update-project";
+import { useDeleteProject } from "../api/use-delete-project";
 
 interface EditProjectFormProps {
   onCancel?: () => void;
@@ -39,11 +40,11 @@ export const EditProjectForm = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate, isPending } = useUpdateProject();
-  // const { mutate: deleteWorkspace, isPending: isDeleting } =
-  //   useDeleteWorkspace();
+  const { mutate: deleteProject, isPending: isDeletingProject } =
+    useDeleteProject();
 
   const [DeleteDialog, confirmDelete] = useConfirm(
-    "Delete Workspace",
+    "Delete Project",
     "This action cannot be undone",
     "destructive"
   );
@@ -56,18 +57,18 @@ export const EditProjectForm = ({
     },
   });
 
-  // const handleDelete = async () => {
-  //   const ok = await confirmDelete();
-  //   if (!ok) return;
-  //   deleteWorkspace(
-  //     { param: { workspaceId: initialValues.$id } },
-  //     {
-  //       onSuccess: () => {
-  //         window.location.href = "/";
-  //       },
-  //     }
-  //   );
-  // };
+  const handleDelete = async () => {
+    const ok = await confirmDelete();
+    if (!ok) return;
+    deleteProject(
+      { param: { projectId: initialValues.$id } },
+      {
+        onSuccess: () => {
+          window.location.href = `/workspaces/${initialValues.workspaceId}`;
+        },
+      }
+    );
+  };
 
   const onSubmit = async (values: z.infer<typeof updateProjectSchema>) => {
     const finalValues = {
@@ -243,16 +244,16 @@ export const EditProjectForm = ({
             </p>
             <DottedSeparator className="py-7" />
 
-            {/* <Button
+            <Button
               className="mt-6 w-fit ml-auto text-white"
               size="sm"
               variant={"destructive"}
               type="button"
-              disabled={isPending || isDeleting}
+              disabled={isPending || isDeletingProject}
               onClick={handleDelete}
             >
               Delete Project
-            </Button> */}
+            </Button>
           </div>
         </CardContent>
       </Card>
