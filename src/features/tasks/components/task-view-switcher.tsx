@@ -10,8 +10,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
 import { useGetTasks } from "../api/use-get-tasks";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { DataFilters } from "./data-filters";
+import { useTaskFilters } from "../hooks/use-task-filters";
 
 export const TaskViewSwitcher = () => {
+  const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
@@ -19,6 +22,10 @@ export const TaskViewSwitcher = () => {
   const workspaceId = useWorkspaceId();
   const { data: tasks, isLoading: isLoadingTask } = useGetTasks({
     workspaceId,
+    projectId,
+    assigneeId,
+    status,
+    dueDate,
   });
 
   return (
@@ -46,7 +53,7 @@ export const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        data filters
+        <DataFilters />
         <DottedSeparator className="my-4" />
         {isLoadingTask ? (
           <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
