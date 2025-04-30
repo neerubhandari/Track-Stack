@@ -1,21 +1,32 @@
 "use client";
 
+import { Loader, PlusIcon } from "lucide-react";
+import { useQueryState } from "nuqs";
+
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlusIcon } from "lucide-react";
+
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
-import { useEffect } from "react";
+import { useGetTasks } from "../api/use-get-tasks";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 
 export const TaskViewSwitcher = () => {
-  const { open, setIsOpen, isOpen } = useCreateTaskModal();
-  useEffect(() => {
-    console.log("Modal state changed:", isOpen);
-  }, [isOpen]);
-  console.log("open", open);
+  const [view, setView] = useQueryState("task-view", {
+    defaultValue: "table",
+  });
+  const { open } = useCreateTaskModal();
+  const workspaceId = useWorkspaceId();
+  const { data: tasks, isLoading: isLoadingTask } = useGetTasks({
+    workspaceId,
+  });
 
   return (
-    <Tabs className="flex-1 w-full border rounded-lg ">
+    <Tabs
+      defaultValue={view}
+      onValueChange={setView}
+      className="flex-1 w-full border rounded-lg "
+    >
       <div className="h-full flex flex-col overflow-auto p-4">
         <div className="flex flex-col gap-y-2 lg:flex-row justify-between items-center">
           <TabsList className="w-full lg:w-auto">
@@ -37,17 +48,23 @@ export const TaskViewSwitcher = () => {
         <DottedSeparator className="my-4" />
         data filters
         <DottedSeparator className="my-4" />
-        <>
-          <TabsContent value="table" className="mt-0">
-            Data table
-          </TabsContent>
-          <TabsContent value="kanban" className="mt-0">
-            Data kanban
-          </TabsContent>
-          <TabsContent value="calender" className="mt-0">
-            Data calender
-          </TabsContent>
-        </>
+        {isLoadingTask ? (
+          <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
+            <Loader className="size-5 animate-spin text-muted-foreground" />
+          </div>
+        ) : (
+          <>
+            <TabsContent value="table" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+            <TabsContent value="kanban" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+            <TabsContent value="calender" className="mt-0">
+              {JSON.stringify(tasks)}
+            </TabsContent>
+          </>
+        )}
       </div>
     </Tabs>
   );
