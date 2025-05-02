@@ -23,9 +23,13 @@ const app = new Hono()
       const { name, status, workspaceId, projectId, dueDate, assigneeId } =
         c.req.valid("json");
 
+      if (!workspaceId) {
+        return c.json({ error: "WorkspaceId is required" }, 400);
+      }
+
       const member = await getMember({
         databases,
-        workspaceId,
+        workspaceId: workspaceId,
         userId: user.$id,
       });
 
@@ -279,6 +283,10 @@ const app = new Hono()
       task.projectId
     );
 
+    if (!task.assigneeId) {
+      return c.json({ error: "No assignee found" }, 400);
+    }
+
     const member = await databases.getDocument(
       DATABASE_ID,
       MEMBERS_ID,
@@ -336,11 +344,14 @@ const app = new Hono()
         return c.json({ error: "Al tasks belong to the same workspace" });
       }
 
-      const workspaceId: string = workspaceIds.values().next().value;
+      const workspaceId = workspaceIds.values().next().value;
+      if (!workspaceId) {
+        return c.json({ error: "WorkspaceId is required" }, 400);
+      }
 
       const member = await getMember({
         databases,
-        workspaceId,
+        workspaceId: workspaceId,
         userId: user.$id,
       });
 

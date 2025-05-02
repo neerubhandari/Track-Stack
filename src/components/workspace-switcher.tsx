@@ -15,7 +15,6 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useCreateWorkspaceModal } from "@/features/workspaces/hooks/use-create-workspace-modal";
 
 export type WorkspaceDocument = {
-  [x: string]: any;
   $id: string;
   $collectionId: string;
   $databaseId: string;
@@ -23,6 +22,7 @@ export type WorkspaceDocument = {
   $updatedAt: string;
   $permissions: string[];
   name: string;
+  imageUrl?: string;
 };
 
 export const WorkspaceSwitcher = () => {

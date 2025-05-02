@@ -5,13 +5,14 @@ import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { useRouter } from "next/navigation";
+import { Member } from "@/features/members/types";
 
 interface EventCardProps {
   id: string;
   title: string;
   project: Project;
   status: TaskStatus;
-  assignee: any;
+  assignee: Member;
 }
 
 const statusColorMap: Record<TaskStatus, string> = {

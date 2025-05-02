@@ -9,7 +9,7 @@ interface TaskDateProps {
 
 export const TaskDate = ({ value, className }: TaskDateProps) => {
   const today = new Date();
-  const endDate = new Date(value);
+  const endDate = value ? new Date(value) : today;
   const diffInDays = differenceInDays(endDate, today);
 
   let textColor = "text-muted-foreground";

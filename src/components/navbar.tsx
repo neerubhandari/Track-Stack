@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import { UserButton } from "@/features/auth/components/user-button";
 import { MobileSidebar } from "./mobile-sidebar";
-import path from "path";
 
 const pathnameMap = {
   tasks: {

@@ -116,7 +116,6 @@ const app = new Hono()
   )
   .get("/:workspaceId/info", sessionMiddleware, async (c) => {
     const databases = c.get("databases");
-    const user = c.get("user");
     const { workspaceId } = c.req.param();
 
     const workspace = await databases.getDocument<Workspace>(

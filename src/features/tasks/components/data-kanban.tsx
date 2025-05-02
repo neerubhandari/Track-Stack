@@ -43,9 +43,11 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
     });
 
     Object.keys(initialTasks).forEach((status) => {
-      initialTasks[status as TaskStatus].sort(
-        (a, b) => a.position - b.position
-      );
+      initialTasks[status as TaskStatus].sort((a, b) => {
+        const positionA = a.position ?? 0;
+        const positionB = b.position ?? 0;
+        return positionA - positionB;
+      });
     });
     return initialTasks;
   });
@@ -64,7 +66,11 @@ export const DataKanban = ({ data, onChange }: DataKanbanProps) => {
     });
 
     Object.keys(newTasks).forEach((status) => {
-      newTasks[status as TaskStatus].sort((a, b) => a.position - b.position);
+      newTasks[status as TaskStatus].sort((a, b) => {
+        const positionA = a.position ?? 0;
+        const positionB = b.position ?? 0;
+        return positionA - positionB;
+      });
     });
     setTasks(newTasks);
   }, [data]);

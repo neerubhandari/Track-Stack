@@ -1,6 +1,5 @@
 import { parseAsString, parseAsStringEnum, useQueryStates } from "nuqs";
 import { TaskStatus } from "../types";
-import { useQuery } from "@tanstack/react-query";
 
 export const useTaskFilters = () => {
   return useQueryStates({
