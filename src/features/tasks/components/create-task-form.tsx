@@ -53,6 +53,7 @@ export const CreateTaskForm = ({
       // .omit({ workspaceId: true })
     ),
     defaultValues: {
+      name: "",
       workspaceId,
     },
   });
