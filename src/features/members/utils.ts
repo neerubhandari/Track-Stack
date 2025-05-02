@@ -12,6 +12,9 @@ export const getMember = async ({
   userId,
   workspaceId,
 }: GetMemberProps) => {
+  if (!userId || !workspaceId) {
+    throw new Error("Missing userId or workspaceId in getMember");
+  }
   const members = await databases.listDocuments(DATABASE_ID, MEMBERS_ID, [
     Query.equal("userId", userId),
     Query.equal("workspaceId", workspaceId),
